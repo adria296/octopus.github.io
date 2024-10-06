@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puwede Pakopya Notes?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0; 
+            height: 100vh;  
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            position: relative; 
+            overflow: hidden; 
+            color: #fff; 
+            background: url('https://c.tenor.com/QjZ88ExU5rEAAAAd/pinoy-film.gif') no-repeat center center fixed; 
+            background-size: cover; 
+        }
+
+        /* Gradient overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            z-index: 0; /* Behind other elements */
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive; /* Font for header */
+            font-size: 30px; /* Header font size */
+            margin: 20px 0;
+            text-align: center; /* Center header */
+            padding: 10px; /* Add padding */
+            z-index: 1; /* Above gradient overlay */
+        }
+
+        .button-container {
+            display: flex; /* Use flexbox for button layout */
+            justify-content: center; /* Center buttons */
+            margin-top: 20px; /* Space above buttons */
+            z-index: 1; /* Above gradient overlay */
+        }
+
+        .button {
+            padding: 15px 30px; /* Button padding */
+            font-size: 20px; /* Button font size */
+            border: none; /* Remove border */
+            border-radius: 25px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            margin: 10px; /* Space between buttons */
+            font-weight: bold; /* Bold text */
+            transition: transform 0.3s, box-shadow 0.3s; /* Animation on hover */
+            outline: none; /* Remove outline */
+            display: inline-block; /* Inline-block for better layout */
+            z-index: 1; /* Above gradient overlay */
+        }
+
+        /* Yes button styles */
+        .yes-button {
+            background-color: #00ff00; /* Green background */
+            color: #fff; /* White text */
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5); /* Green shadow */
+        }
+
+        /* No button styles */
+        .no-button {
+            background-color: #ff0000; /* Red background */
+            color: #fff; /* White text */
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5); /* Red shadow */
+        }
+
+        /* Hover effects */
+        .button:hover {
+            transform: scale(1.15); /* Zoom on hover */
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5); /* White glow */
+        }
+
+        .comments {
+            font-size: 14px; /* Comment font size */
+            margin-top: 20px; /* Space above comments */
+            text-align: center; /* Center comments */
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+            padding: 10px; /* Padding for comments */
+            border-radius: 10px; /* Rounded corners */
+            z-index: 1; /* Above gradient overlay */
+            min-height: 30px; /* Minimum height for comments */
+            display: none; /* Hide comments initially */
+            opacity: 0; /* Start invisible */
+            transition: opacity 0.5s ease-in; /* Fade-in effect */
+        }
+
+        /* Instruction text */
+        .instruction {
+            font-size: 14px; /* Instruction font size */
+            margin-top: 10px; /* Space above instruction */
+            text-align: center; /* Center instruction */
+            color: #ffffff; /* White text */
+            z-index: 1; /* Above gradient overlay */
+        }
+
+        /* Credit text */
+        .credit {
+            font-size: 10px; /* Credit font size */
+            position: absolute; /* Position credit */
+            bottom: 20px; /* Space from bottom */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Centering adjustment */
+            color: white; /* Credit text color */
+            z-index: 1; /* Above gradient overlay */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Puwede Pakopya Notes?</h1>
+
+    <div class="button-container"> <!-- Container for buttons -->
+        <button class="button yes-button" id="yesButton" onclick="handleYes()">Yes</button>
+        <button class="button no-button" id="noButton" onclick="handleNo()">No</button>
+    </div>
+
+    <div class="instruction">You can still press the "No" button for more comments!</div> <!-- Instruction message -->
+
+    <div class="comments" id="comments"></div>
+    
+    <audio id="yesAudio" src="Yes.mp3" preload="auto"></audio> <!-- Yes audio element -->
+    <audio id="noAudio" src="No.mp3" preload="auto"></audio> <!-- No audio element -->
+
+    <div class="credit">Ako na to oh</div> <!-- Credit text -->
+
+    <script>
+        let noClickCount = 0; // Count of No button clicks
+        const noAudio = document.getElementById('noAudio'); // No audio element
+
+        // Handle Yes button
+        function handleYes() {
+            noAudio.pause(); // Stop No audio if playing
+            noAudio.currentTime = 0; // Reset No audio to start
+            document.getElementById('noButton').style.display = 'none'; // Hide No button
+            document.getElementById('yesButton').disabled = true; // Disable Yes button after click
+            document.getElementById('comments').style.display = 'none'; // Hide comments
+            const yesAudio = document.getElementById('yesAudio');
+            yesAudio.currentTime = 0; // Reset Yes audio to start
+            yesAudio.play(); // Play yes audio
+            document.getElementById('comments').innerText = "Maraming Salamat!"; // Gratitude message
+            document.getElementById('comments').style.display = 'block'; // Show gratitude message
+            document.getElementById('comments').style.opacity = 1; // Make it visible
+        }
+
+        // Handle No button
+        function handleNo() {
+            const comments = [
+                "Bat naman?",
+                "Ayaw mo talaga?",
+                "Minsan lang mag-request!",
+                "Seryoso ba :<",
+                "Maiintindihan ko yung sulat mo.",
+                "Alien Writing ka ba?"
+            ];
+
+            noClickCount++;
+            if (noClickCount > comments.length) {
+                noClickCount = 1; // Reset to the first comment when all comments have been shown
+            }
+
+            showComment(comments[noClickCount - 1]);
+            noAudio.currentTime = 0; // Reset the audio
+            noAudio.play();
+            setTimeout(fadeOutNoAudio, noAudio.duration * 1000 - 1000); // Start fade-out 1 second before the audio ends
+        }
+
+        function showComment(comment) {
+            const commentsDiv = document.getElementById('comments');
+            commentsDiv.innerText = comment; // Set comment text
+            commentsDiv.style.display = 'block'; // Show comments
+            commentsDiv.style.opacity = 0; // Start invisible
+
+            // Fade-in effect
+            setTimeout(() => {
+                commentsDiv.style.opacity = 1; // Fade in
+            }, 10);
+        }
+
+        // Fade-out effect for No audio
+        function fadeOutNoAudio() {
+            let fadeOut = setInterval(() => {
+                if (noAudio.volume > 0) {
+                    noAudio.volume -= 0.05; // Gradually decrease volume
+                } else {
+                    clearInterval(fadeOut); // Stop once volume is 0
+                    noAudio.pause(); // Pause the audio
+                    noAudio.volume = 1; // Reset volume for next play
+                }
+            }, 100); // Decrease volume every 100ms
+        }
+    </script>
+</body>
+</html>
