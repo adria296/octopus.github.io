@@ -148,13 +148,10 @@
             noAudio.currentTime = 0; // Reset No audio to start
             document.getElementById('noButton').style.display = 'none'; // Hide No button
             document.getElementById('yesButton').disabled = true; // Disable Yes button after click
-            document.getElementById('comments').style.display = 'none'; // Hide comments
             const yesAudio = document.getElementById('yesAudio');
             yesAudio.currentTime = 0; // Reset Yes audio to start
             yesAudio.play(); // Play yes audio
-            document.getElementById('comments').innerText = "Maraming Salamat!"; // Gratitude message
-            document.getElementById('comments').style.display = 'block'; // Show gratitude message
-            document.getElementById('comments').style.opacity = 1; // Make it visible
+            showComment("Maraming Salamat!"); // Gratitude message
         }
 
         // Handle No button
@@ -169,11 +166,11 @@
             ];
 
             noClickCount++;
-            if (noClickCount > comments.length) {
-                noClickCount = 1; // Reset to the first comment when all comments have been shown
+            if (noClickCount >= comments.length) {
+                noClickCount = 0; // Reset to the first comment when all comments have been shown
             }
 
-            showComment(comments[noClickCount - 1]);
+            showComment(comments[noClickCount]);
             noAudio.currentTime = 0; // Reset the audio
             noAudio.play();
             setTimeout(fadeOutNoAudio, noAudio.duration * 1000 - 1000); // Start fade-out 1 second before the audio ends
